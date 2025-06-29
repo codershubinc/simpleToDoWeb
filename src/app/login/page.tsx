@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 function Page() {
     const { register, handleSubmit } = useForm()
@@ -67,8 +68,12 @@ function Page() {
                     <Button variant="outline" type="submit" className='w-full mt-3'>
                         login
                     </Button>
+                    <Button variant="outline" className='w-full mt-3' >
+                        <Link href="/signup">
+                            Sign Up
+                        </Link>
+                    </Button>
                 </form>
-                <Button variant="outline" className='w-full mt-3' onClick={() => authService.logout()} >LogOut</Button>
             </div>
         </div>
     )
