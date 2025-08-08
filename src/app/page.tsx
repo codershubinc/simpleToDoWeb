@@ -22,7 +22,7 @@ export default function Home() {
         console.log('user', user);
 
         if (user != null) {
-          const todoDocsResult = await todoDBConfig.listAllTodos(user.$id);
+          const todoDocsResult = await todoDBConfig.listAllTodos(user?.$id);
           setAllTodoDocs(todoDocsResult.documents);
           setLoading(false);
         }

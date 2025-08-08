@@ -38,12 +38,12 @@ function Page() {
                 // Update existing todo logic here
             } else {
                 console.log('data', data);
-               const date = `${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')}`
+                const date = `${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')}`
                 console.log('date', date);
 
                 const newTodo = await todoDBConfig.createTodo({
                     ...data,
-                    todoByUser: user.$id,
+                    todoByUser: user?.$id,
                     date: String(date)
                 });
                 console.log('todo', newTodo);
