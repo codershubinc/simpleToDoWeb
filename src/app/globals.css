@@ -22,7 +22,8 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 215 20% 65%;
+    /* slate/steel for light */
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -60,8 +61,8 @@
     /* muted blue-gray */
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 291 64% 42%;
-    /* purple accent */
+    --accent: 215 20% 50%;
+    /* slate/steel for dark */
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 72% 51%;

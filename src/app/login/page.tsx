@@ -46,12 +46,12 @@ function Page() {
                     <Button variant="outline" type="submit" className='w-full mt-2 sm:mt-3'>
                         Login
                     </Button>
-                    <Button variant="outline" className='w-full mt-2 sm:mt-3' >
-                        <Link href="/signup">
-                            Sign Up
-                        </Link>
-                    </Button>
                 </form>
+                <div className="w-full flex justify-center mt-2">
+                    <span className="text-xs sm:text-sm text-gray-400">Don&#39;t have an account?{' '}
+                        <a href="/signup" className="bg-clip-text text-transparent bg-gradient-to-r from-rose-400  via-red-500 to-red-300 hover:underline">Sign Up</a>
+                    </span>
+                </div>
             </div>
         </div>
     )

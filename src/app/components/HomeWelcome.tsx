@@ -66,7 +66,7 @@ const HomeWelcome: React.FC<HomeWelcomeProps> = ({ hasTodos = true }) => {
                 >
                     <Link href={buttonHref} className="inline-block">
                         <button
-                            className="px-6 py-2 rounded-lg bg-accent text-accent-foreground font-semibold shadow transition-colors duration-200 hover:bg-accent/80 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                            className="px-6 py-2 rounded-lg bg-gradient-to-r from-slate-500 via-slate-700 to-slate-900 text-white font-semibold shadow transition-colors duration-200 hover:from-slate-600 hover:to-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
                         >
                             {buttonText}
                         </button>

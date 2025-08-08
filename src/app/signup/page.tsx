@@ -57,6 +57,11 @@ function SignupPage() {
                         Sign Up
                     </Button>
                 </form>
+                <div className="w-full flex justify-center mt-2">
+                    <span className="text-xs sm:text-sm text-gray-400">Already have an account?{' '}
+                        <a href="/login" className="bg-clip-text text-transparent bg-gradient-to-r from-rose-400  via-red-500 to-red-300  hover:underline">Login</a>
+                    </span>
+                </div>
             </div>
         </div>
     )
