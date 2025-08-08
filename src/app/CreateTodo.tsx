@@ -41,12 +41,12 @@ function CreateTodo({ todo, display }: CreateTodoProps) {
 
             if (todo) {
                 console.log('todo found', todo);
-                
+
                 console.log('todo', todo);
                 console.log('data', data);
                 const updateTodo = await todoDBConfig.updateTodo(todo.$id, {
                     ...data,
-                    todoByUser: user.$id
+                    todoByUser: user?.$id
                 })
                 if (updateTodo) {
                     console.log('updateTodo', updateTodo);
@@ -57,15 +57,15 @@ function CreateTodo({ todo, display }: CreateTodoProps) {
                 // Update existing todo logic here
             } else {
                 console.log('todo not found', todo);
-                
+
                 console.log('data', data);
                 const date = new Date().setUTCDate;
                 console.log('date', date);
-                
+
 
                 const newTodo = await todoDBConfig.createTodo({
                     ...data,
-                    todoByUser: user.$id,
+                    todoByUser: user?.$id,
                     date: String(date)
                 });
                 console.log('todo', newTodo);
