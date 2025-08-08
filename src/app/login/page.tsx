@@ -30,45 +30,23 @@ function Page() {
         }
     }
     return (
-        <div
-            className='flex  min-h-screen  items-center justify-between p-24 bg-black text-white'
-        >
-
-            <div
-                className="flex flex-col p-3 rounded-3xl  w-max  min-w-[350px] gap-1.5 justify-center items-center bg-slate-900 h-max mx-auto  shadow-md shadow-slate-500"
-            >
-                <p className='text-red-500 w-[300px]'> {error ? error : " "} </p>
-
-                <form onSubmit={handleSubmit(login)} className='min-w-[90%] w-max mx-auto flex flex-col justify-center items-center'>
-                    <h2 className='text-2xl text-center'>Login</h2>
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label
-                            htmlFor="email"
-                        >
-                            Email
-                        </Label>
-                        <Input
-                            type="text"
-                            id="todo title"
-                            placeholder="Email"
-                            required
-                            {...register("email")}
-                        />
+        <div className='flex min-h-screen items-center justify-center bg-black text-white p-2 sm:p-4 md:p-8'>
+            <div className="flex flex-col p-2 sm:p-4 md:p-6 rounded-3xl w-full max-w-xs sm:max-w-md md:max-w-lg gap-2 sm:gap-3 justify-center items-center bg-slate-900 h-max mx-auto shadow-md shadow-slate-500">
+                <p className='text-red-500 w-full text-xs sm:text-sm md:text-base'> {error ? error : " "} </p>
+                <form onSubmit={handleSubmit(login)} className='w-full flex flex-col justify-center items-center'>
+                    <h2 className='text-xl sm:text-2xl text-center mb-2'>Login</h2>
+                    <div className="grid w-full items-center gap-1.5 mb-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input type="text" id="email" placeholder="Email" required {...register("email")} />
                     </div>
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="email">PassWord</Label>
-                        <Input
-                            type="text"
-                            id="todo message"
-                            placeholder="Enter password"
-                            required
-                            {...register("password")}
-                        />
+                    <div className="grid w-full items-center gap-1.5 mb-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input type="password" id="password" placeholder="Enter password" required {...register("password")} />
                     </div>
-                    <Button variant="outline" type="submit" className='w-full mt-3'>
-                        login
+                    <Button variant="outline" type="submit" className='w-full mt-2 sm:mt-3'>
+                        Login
                     </Button>
-                    <Button variant="outline" className='w-full mt-3' >
+                    <Button variant="outline" className='w-full mt-2 sm:mt-3' >
                         <Link href="/signup">
                             Sign Up
                         </Link>

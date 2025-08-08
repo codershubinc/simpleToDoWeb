@@ -58,38 +58,36 @@ function Page() {
     };
 
     return (
-        <div
-            className={
-                'flex flex-col p-3 rounded-3xl w-[30%] min-w-[350px] gap-1.5 justify-center items-center bg-slate-900 h-max shadow-md shadow-slate-500 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'}
-        >
-
-            <form onSubmit={handleSubmit(onSubmit)} className='w-[90%] mx-auto'>
-                <Button variant="outline" className=' absolute top-0  right-0' onClick={() => navigate.push('/')}>❌</Button>
-                <h2 className='text-2xl text-center'>{todo ? 'Update Todo' : 'Create Todo'}</h2>
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                    <Label htmlFor="todoTitle">Todo Title</Label>
-                    <Input
-                        type="text"
-                        id="todoTitle"
-                        placeholder="Todo Title"
-                        required
-                        {...register("todoTitle")}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                    <Label htmlFor="todoMessage">Todo Message</Label>
-                    <Textarea
-                        id="todoMessage"
-                        placeholder="Todo Message"
-                        className='h-32'
-                        required
-                        {...register("todoMessage")}
-                    />
-                </div>
-                <Button variant="outline" type="submit" className='w-full mt-3' disabled={loading}>
-                    {todo ? 'Update Todo' : 'Create Todo'}
-                </Button>
-            </form>
+        <div className="flex min-h-screen items-center justify-center bg-black text-white p-2 sm:p-4 md:p-8">
+            <div className="flex flex-col p-2 sm:p-4 md:p-6 rounded-3xl w-full max-w-xs sm:max-w-md md:max-w-lg gap-2 sm:gap-3 justify-center items-center bg-slate-900 h-max mx-auto shadow-md shadow-slate-500 relative">
+                <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col justify-center items-center'>
+                    <Button variant="outline" className='absolute top-2 right-2' onClick={() => navigate.push('/')}>❌</Button>
+                    <h2 className='text-xl sm:text-2xl text-center mb-2'>{todo ? 'Update Todo' : 'Create Todo'}</h2>
+                    <div className="grid w-full items-center gap-1.5 mb-2">
+                        <Label htmlFor="todoTitle">Todo Title</Label>
+                        <Input
+                            type="text"
+                            id="todoTitle"
+                            placeholder="Todo Title"
+                            required
+                            {...register("todoTitle")}
+                        />
+                    </div>
+                    <div className="grid w-full items-center gap-1.5 mb-2">
+                        <Label htmlFor="todoMessage">Todo Message</Label>
+                        <Textarea
+                            id="todoMessage"
+                            placeholder="Todo Message"
+                            className='h-32'
+                            required
+                            {...register("todoMessage")}
+                        />
+                    </div>
+                    <Button variant="outline" type="submit" className='w-full mt-2 sm:mt-3' disabled={loading}>
+                        {todo ? 'Update Todo' : 'Create Todo'}
+                    </Button>
+                </form>
+            </div>
         </div>
     );
 }
