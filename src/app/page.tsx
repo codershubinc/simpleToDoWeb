@@ -21,15 +21,18 @@ export default function Home() {
         const user = await authService.getCurrentUser();
         console.log('user', user);
 
-        if (user) {
+        if (user != null) {
           const todoDocsResult = await todoDBConfig.listAllTodos(user.$id);
           setAllTodoDocs(todoDocsResult.documents);
           setLoading(false);
         }
         setLoading(false);
+        console.log('Fetched todos:', allTodoDocs);
+
       } catch (error) {
         setLoading(false);
-        console.error('Error fetching todos:', error);
+        console.log('Error at fetching todos:', error);
+
       }
     };
 
@@ -40,10 +43,6 @@ export default function Home() {
     window.location.reload();
   };
 
-  // Log the todo titles whenever allTodoDocs changes
-  useEffect(() => {
-    console.log('allTodoDocs', allTodoDocs)
-  }, [allTodoDocs]);
 
   if (loading) {
     return <Button
@@ -55,43 +54,37 @@ export default function Home() {
   }
 
 
-  // Show welcome if not logged in or no todos
-  const isNewcomer = allTodoDocs.length === 0 && !authService.getCurrentUser();
+  // Always show HomeWelcome at the top, regardless of user state
   return (
     <div className="flex min-h-screen items-center justify-between bg-black text-white">
-      <div className="w-full h-screen bg-gray-900 p-4">
-        {isNewcomer ? (
-          <HomeWelcome />
-        ) : (
-          <>
-            <div className="flex  fixed top-0 left-0  bg-black h-[50px] w-full">
-              <h1 className="text-2xl">All Todos</h1>
-              <Link href="/createtodo">
-                ➕
-              </Link>
-              <Button
-                variant="destructive"
-                onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 top-0 right-0 z-50 sticky"
-              >Logout</Button>
-            </div>
-            <div>
-              <div
-                className="flex flex-wrap mt-[40px] h-[90vh]  w-full  "
-              >
-                {allTodoDocs.map((todo) => (
-                  <CardComp
-                    key={todo.$id}
-                    todoTitle={todo.todoTitle}
-                    todoMessage={todo.todoMessage.replace(/(?:\r\n|\r|\n)/g, '<br>')}
-                    todoDate={todo.date}
-                    todoCompleted={todo.$id}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+      <div className="w-full h-screen bg-gray-900 p-4 overflow-y-auto">
+        <HomeWelcome />
+        <div className="flex  fixed top-0 left-0  bg-black h-[50px] w-full">
+          <h1 className="text-2xl">All Todos</h1>
+          <Link href="/createtodo">
+            ➕
+          </Link>
+          <Button
+            variant="destructive"
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 top-0 right-0 z-50 sticky"
+          >Logout</Button>
+        </div>
+        <div>
+          <div
+            className="flex flex-wrap mt-[40px] h-[90vh]  w-full  "
+          >
+            {allTodoDocs.map((todo) => (
+              <CardComp
+                key={todo.$id}
+                todoTitle={todo.todoTitle}
+                todoMessage={todo.todoMessage.replace(/(?:\r\n|\r|\n)/g, '<br>')}
+                todoDate={todo.date}
+                todoCompleted={todo.$id}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       {addTodo && <CreateTodo todo={null} display={addTodo} />}
     </div>
