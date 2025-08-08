@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import authService from "@/config/auth";
 import { motion } from "framer-motion";
 
-export default function HomeWelcome() {
+type HomeWelcomeProps = {
+    hasTodos?: boolean;
+};
+
+const HomeWelcome: React.FC<HomeWelcomeProps> = ({ hasTodos = true }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -14,53 +18,63 @@ export default function HomeWelcome() {
         const checkUser = async () => {
             try {
                 const user = await authService.getCurrentUser();
-                console.log("Current user:", user);
                 setIsLoggedIn(!!user);
                 setError(null);
             } catch (err: any) {
                 setIsLoggedIn(false);
                 setError(typeof err === 'string' ? err : err?.message || 'Could not check login status.');
-                throw new Error("Error checking user login status: " + (err?.message || 'Unknown error'));
             }
         };
         checkUser();
     }, []);
 
+    // Show nothing for logged-in users with todos
+    if (isLoggedIn && hasTodos) {
+        return null;
+    }
+
+    // Message and button logic
+    const message = "Organize your tasks, stay productive, and never miss a thing. Sign up or log in to start managing your todos. If you already have an account, just log in and your todos will appear here.";
+    const buttonHref = isLoggedIn ? "/createtodo" : "/signup";
+    const buttonText = isLoggedIn ? "Create your first todo" : "Sign Up";
+
     return (
         <motion.div
-            className="flex flex-col items-center justify-center h-[70vh] sm:h-[80vh] text-center px-2 sm:px-4 md:px-8"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="w-full max-w-xl mx-auto mt-8"
         >
-            <motion.h1
-                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
-            >
-                Welcome to Simple Todo App!
-            </motion.h1>
-            <motion.p
-                className="mb-4 sm:mb-6 text-base sm:text-lg text-gray-300 max-w-xs sm:max-w-xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-            >
-                Organize your tasks, stay productive, and never miss a thing. Sign up or log in to start managing your todos. If you already have an account, just log in and your todos will appear here.
-            </motion.p>
-            {error && (
-                <motion.div className="mb-2 sm:mb-4 text-red-400 font-semibold text-xs sm:text-base" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    {error}
-                </motion.div>
-            )}
-            <motion.div className="flex gap-2 sm:gap-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
-                {!isLoggedIn && (
-                    <Link href="/login">
-                        <Button variant="default" asChild={false} className="px-4 py-2 text-xs sm:text-base">Login</Button>
-                    </Link>
+            <div className="bg-[hsl(224,40%,12%)] border border-[hsl(222,20%,18%)] rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
+                <h2 className="text-2xl font-bold mb-2 text-foreground bg-[hsl(224,40%,16%)] w-full rounded-t-xl py-2">Welcome!</h2>
+                <motion.p
+                    className="text-base md:text-lg text-muted-foreground mb-4 bg-[hsl(224,40%,12%)] w-full py-2 rounded"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                    {message}
+                </motion.p>
+                {error && (
+                    <motion.div className="mb-2 sm:mb-4 text-red-400 font-semibold text-xs sm:text-base" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                        {error}
+                    </motion.div>
                 )}
-            </motion.div>
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                >
+                    <Link href={buttonHref} className="inline-block">
+                        <button
+                            className="px-6 py-2 rounded-lg bg-accent text-accent-foreground font-semibold shadow transition-colors duration-200 hover:bg-accent/80 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                        >
+                            {buttonText}
+                        </button>
+                    </Link>
+                </motion.div>
+            </div>
         </motion.div>
     );
 }
+
+export default HomeWelcome;

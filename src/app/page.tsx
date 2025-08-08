@@ -7,7 +7,7 @@ import authService from "@/config/auth";
 import { Button } from "@/components/ui/button";
 import CardComp from "./CardComp";
 import Link from "next/link";
-import HomeWelcome from "../components/HomeWelcome";
+import HomeWelcome from "../app/components/HomeWelcome";
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -68,7 +68,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-black text-white">
       <div className="w-full min-h-screen bg-gray-900 p-2 sm:p-4 md:p-6 lg:p-8 overflow-y-auto flex flex-col">
-        <HomeWelcome />
+        <HomeWelcome hasTodos={Boolean(allTodoDocs.length > 0)} />
         <motion.div
           className="flex fixed top-0 left-0 bg-black h-[50px] w-full items-center px-2 sm:px-4 shadow-lg z-50"
           initial={{ y: -60, opacity: 0 }}

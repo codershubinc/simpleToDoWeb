@@ -20,8 +20,14 @@ function SignupPage() {
             const { email, password, name } = data;
             const account = await authService.createAccount({ email, password, name });
             if (account) {
-                setSuccess("Account created! Please login.");
+                const loginUser = await authService.login({ email, password });
+                if (loginUser) {
+                    setSuccess("Account created! Please login.");
+                    return setTimeout(() => router.push("/"), 1500);
+                }
+                setError("Login failed");
                 setTimeout(() => router.push("/login"), 1500);
+
             }
         } catch (error: any) {
             setError(error.message || "Signup failed");
